@@ -1,0 +1,5 @@
+- Generación de datos:
+
+Los datos se generan con la librería Pycbcb de Lalsuite, un módulo de Python. Con la función get_td_waveform() del modulo waveforms de Pycbc, se generan las polarizaciones cross y plus de la onda gravtacional. Para esta función, sólo se fijan el aproximante, el paso temporal del muestreo de la señal, y el valor de frecuencia de donde empezará la señal del merger, los demás parámetros toman valores por defecto. Para obtener la señal de la onda, se utiliza el detector H1, con cuyo método, project_wave(), se obtiene esta fijando los parámetros de declinación, ascención recta y polarización a cero.
+
+Para generar las señales, se utilizan pares de masas de 10 a 75 masas solares, donde el intervalo tiene paso entero. Se generan también señales con pares de masas en el intervalo de 10.5 a 75.5, con paso entero. El par de masas se elige tal que la masa mayor no sobrepase 1/5 de la masa menor.
