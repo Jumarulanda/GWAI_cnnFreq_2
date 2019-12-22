@@ -1,0 +1,6 @@
+import numpy as np
+import os
+
+fi_names = os.listdir("noi_data/")
+
+print(fi_names)

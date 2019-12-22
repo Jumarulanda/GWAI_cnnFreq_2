@@ -1,5 +1,6 @@
 data_generation/data/
 data_generation/noi_data/
+data_generation/train_data/
 
 data_generation/dataGen_script.py~
 
