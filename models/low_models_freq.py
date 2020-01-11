@@ -37,22 +37,22 @@ class base_model():
             print("> test and train mape not yet created")
             self.hist_exts = False
             
-    def make_model(self, activation="selu", dp=0.0):
+    def make_model(self, activation="selu", dp=0.5):
         data_shape = (31,63)
         channels = 1
 
         self.model = tf.keras.models.Sequential()
 
         ''' model build '''
-        
+    
         self.model.add(tf.compat.v2.keras.layers.Convolution2D(filters=16, kernel_size=16, activation=activation, padding="same", input_shape=(data_shape[0], data_shape[1], channels)))
         self.model.add(tf.compat.v2.keras.layers.Convolution2D(filters=8, kernel_size=8, activation=activation, padding="same"))
         self.model.add(tf.compat.v2.keras.layers.Convolution2D(filters=4, kernel_size=4, activation=activation, padding="same"))
         self.model.add(tf.compat.v2.keras.layers.MaxPooling2D(pool_size=4, padding="same"))
-
+	
         self.model.add(tf.compat.v2.keras.layers.Dropout(dp))
         self.model.add(tf.compat.v2.keras.layers.Flatten())
-
+	
         self.model.add(tf.compat.v2.keras.layers.Dropout(rate=0.1))
         self.model.add(tf.compat.v2.keras.layers.Dense(units=32, activation=activation))
         self.model.add(tf.compat.v2.keras.layers.Dense(units=16, activation=activation))

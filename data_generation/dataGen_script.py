@@ -21,7 +21,7 @@ det_h1 = Detector("H1") # GW detector
 end_time = 0 #1192529720 # GPS time -- What is this????
 declination = 0 
 right_ascension = 0
-polarization = 0
+polarization = np.pi/2#0
 
 ### Generating data functions
 
@@ -100,7 +100,7 @@ def CNS(SNR,signal):
 	return new_strain, res_signal
 
 
-def genCS(file_n, snr):
+def genCS(file_n, snr, saveloc):
 
     clean_data = np.load("data/"+file_n)
     
@@ -125,10 +125,11 @@ def genCS(file_n, snr):
 
     t_signal = np.concatenate((color_signal,color_signal_s), axis=0)
     
-    np.save("noi_data/cSignals_snr{}_masses{}_{}.npy".format(snr,masses[0],masses[1]), t_signal)
+    np.save(saveloc+"cSignals_snr{}_masses{}_{}.npy".format(snr,masses[0],masses[1]), t_signal)
 
     print("Created colored signals of snr {} and masses {} and {}".format(snr,masses[0],masses[1]))
-
+    print("Saved at ",saveloc)
+    
 if __name__ == "__main__":
 
     # # data generation
@@ -147,7 +148,7 @@ if __name__ == "__main__":
                 
     #             total_signal = np.concatenate((pre_tSignal,mass_array), axis=1)
                 
-    #             np.save("data/clean_data_m{}_{}.npy".format(mass1,mass2), total_signal)
+    #             np.save("data_npol/clean_npol_data_m{}_{}.npy".format(mass1,mass2), total_signal)
 
     #             print("Signal of merger signals {} {} creted".format(mass1,mass2))
             
@@ -162,13 +163,19 @@ if __name__ == "__main__":
                 
     #             total_signal = np.concatenate((pre_tSignal,mass_array), axis=1)
                 
-    #             np.save("data/clean_data_m{}_{}.npy".format(mass1,mass2), total_signal)
+    #             np.save("data_npol/clean_npol_data_m{}_{}.npy".format(mass1,mass2), total_signal)
 
     #             print("Signal of merger signals {} {} creted".format(mass1,mass2))
                 
 
     file_names = os.listdir("data/")
-    snr = 0.1
+    snrs = [90]
+
+    savefile = "dat_snr"
     
-    for file_name in file_names:
-        genCS(file_name, snr)
+    for snr in snrs:
+        
+        saveloc = "data_snrs/"+savefile+str(snr)+"/"
+
+        for file_name in file_names:
+            genCS(file_name, snr, saveloc)

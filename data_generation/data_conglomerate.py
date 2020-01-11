@@ -1,17 +1,22 @@
 import numpy as np
 import os
 
-fi_names = os.listdir("noi_data/")
+snrs = [90]
+save_file = "dat_snr"
 
-all_data = [np.load("noi_data/"+name) for name in fi_names[2:]]
+for snr in snrs:
 
-d1 = np.load("noi_data/"+fi_names[0])
-d2 = np.load("noi_data/"+fi_names[1])
+    fi_names = os.listdir("data_snrs/"+save_file+str(snr))
 
-data = np.concatenate((d1,d2),axis=0)
+    all_data = [np.load("data_snrs/"+save_file+str(snr)+"/"+str(name)) for name in fi_names[2:]]
 
-for dat in all_data:
-    data = np.concatenate((data,dat),axis=0)
-    print(data.shape)
+    d1 = np.load("data_snrs/"+save_file+str(snr)+"/"+fi_names[0])
+    d2 = np.load("data_snrs/"+save_file+str(snr)+"/"+fi_names[1])
 
-np.save("train_data/tdata.npy",data)
+    data = np.concatenate((d1,d2),axis=0)
+
+    for dat in all_data:
+        data = np.concatenate((data,dat),axis=0)
+        print("{} of snr {}".format(data.shape,snr))
+
+    np.save("train_data/data_snrs{}.npy".format(snr),data)

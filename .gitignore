@@ -1,6 +1,9 @@
 data_generation/data/
 data_generation/noi_data/
 data_generation/train_data/
+data_generation/data_npol/
+data_generation/data_snrs/
+data_generation/noi_npol_data/
 
 data_generation/dataGen_script.py~
 

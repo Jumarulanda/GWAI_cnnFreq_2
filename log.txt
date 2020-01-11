@@ -3,3 +3,39 @@
 Los datos se generan con la librería Pycbcb de Lalsuite, un módulo de Python. Con la función get_td_waveform() del modulo waveforms de Pycbc, se generan las polarizaciones cross y plus de la onda gravtacional. Para esta función, sólo se fijan el aproximante, el paso temporal del muestreo de la señal, y el valor de frecuencia de donde empezará la señal del merger, los demás parámetros toman valores por defecto. Para obtener la señal de la onda, se utiliza el detector H1, con cuyo método, project_wave(), se obtiene esta fijando los parámetros de declinación, ascención recta y polarización a cero.
 
 Para generar las señales, se utilizan pares de masas de 10 a 75 masas solares, donde el intervalo tiene paso entero. Se generan también señales con pares de masas en el intervalo de 10.5 a 75.5, con paso entero. El par de masas se elige tal que la masa mayor no sobrepase 1/5 de la masa menor.
+
+- Modelos:
+
+1. CNN, freq space:
+
+        tf.compat.v2.keras.layers.Convolution2D(filters=16, kernel_size=16, activation=activation, padding="same", input_shape=(data_shape[0], data_shape[1], channels))
+        tf.compat.v2.keras.layers.Convolution2D(filters=8, kernel_size=8, activation=activation, padding="same")
+        tf.compat.v2.keras.layers.Convolution2D(filters=4, kernel_size=4, activation=activation, padding="same")
+        tf.compat.v2.keras.layers.MaxPooling2D(pool_size=4, padding="same")
+	
+        tf.compat.v2.keras.layers.Dropout(dp)
+        tf.compat.v2.keras.layers.Flatten()
+	
+        tf.compat.v2.keras.layers.Dropout(rate=0.1)
+        tf.compat.v2.keras.layers.Dense(units=32, activation=activation)
+        tf.compat.v2.keras.layers.Dense(units=16, activation=activation)
+        tf.compat.v2.keras.layers.Dense(units=2, activation=activation)
+
+        optimizer="adam", loss="mean_absolute_percentage_error"
+
+2. CNN, freq space:
+        tf.compat.v2.keras.layers.Convolution2D(filters=16, kernel_size=16, activation=activation, padding="same", input_shape=(data_shape[0], data_shape[1], channels))
+        tf.compat.v2.keras.layers.Convolution2D(filters=64, kernel_size=8, activation=activation, padding="same")
+        tf.compat.v2.keras.layers.Convolution2D(filters=8, kernel_size=4, activation=activation, padding="same")
+        tf.compat.v2.keras.layers.MaxPooling2D(pool_size=4, padding="same")
+	
+        tf.compat.v2.keras.layers.Dropout(dp)
+        tf.compat.v2.keras.layers.Flatten()
+	
+        tf.compat.v2.keras.layers.Dropout(rate=0.1)
+        tf.compat.v2.keras.layers.Dense(units=64, activation=activation)
+        tf.compat.v2.keras.layers.Dense(units=32, activation=activation)
+        tf.compat.v2.keras.layers.Dense(units=16, activation=activation)
+        tf.compat.v2.keras.layers.Dense(units=8, activation=activation)
+        tf.compat.v2.keras.layers.Dense(units=2, activation=activation)
+
